@@ -19,6 +19,7 @@ public class GuiController {
 	private RegisteredUser currentUser;
 	private LandLord landlord;
 	private NewPropertyView propV;
+	private ChangePropertyView cpropV;
 	//private SearchCriteria searchCriteria;
 	
 	public GuiController()
@@ -130,6 +131,7 @@ public class GuiController {
 				list.listModel.clear();
 				list.initializeLandLord();
 				list.btnLandLordCreateProperty.addActionListener(new createPropertyControl());
+				list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
 				
 				
 				
@@ -185,6 +187,34 @@ public class GuiController {
 		}
 		
 	};
+	
+	class changePropertyControl implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			cpropV = new ChangePropertyView();
+			cpropV.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			cpropV.setVisible(true);
+			cpropV.bttnConfirm.addActionListener(new confirmPropertyControl());
+		}
+		
+	};
+	
+	class confirmPropertyControl implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String s;			
+			s = "UPDATE properties \nSET state = " + Integer.parseInt(cpropV.txtNewState.getText())
+				+ " \nWHERE propertyID = " + Integer.parseInt(cpropV.txtPropID.getText()) + ";";
+			db.executeQuery(s);
+			
+			
+		}
+		
+	};
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
