@@ -209,7 +209,7 @@ public class GuiController {
 		public void actionPerformed(ActionEvent e) {
 			String s;			
 			s = "UPDATE properties \nSET state = " + Integer.parseInt(cpropV.txtNewState.getText())
-				+ " \nWHERE propertyID = " + Integer.parseInt(cpropV.txtPropID.getText()) + ";";
+				+ " \nWHERE property_id = " + Integer.parseInt(cpropV.txtPropID.getText()) + ";";
 			db.executeQuery(s);
 			
 			
