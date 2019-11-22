@@ -86,29 +86,21 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent arg0)
 		{
-		//	if(!(searchV.boxQuadrant.getSelectedItem().toString() == " "))
-			{
-				currentUser.searchCrit.setQuadrant(searchV.boxQuadrant.getSelectedItem().toString());
-			}
+			currentUser.searchCrit.setQuadrant(searchV.boxQuadrant.getSelectedItem().toString());
 			
-		//	if(!(searchV.checkFurniture.getSelectedItem().toString() == " "))
-			{
-				currentUser.searchCrit.setFurnished(searchV.checkFurniture.getSelectedItem().toString());
-			}
+			currentUser.searchCrit.setFurnished(searchV.checkFurniture.getSelectedItem().toString());
 			
-		//	if(!(searchV.boxpropType.getSelectedItem().toString() == " "))
-			{
-				currentUser.searchCrit.setPropertyType(searchV.boxpropType.getSelectedItem().toString());
-			}
+			currentUser.searchCrit.setPropertyType(searchV.boxpropType.getSelectedItem().toString());
+			
 			
 			if(!searchV.textBed.getText().isEmpty())
 			{
-			currentUser.searchCrit.setNumOfBeds(Integer.parseInt(searchV.textBed.getText()));
+				currentUser.searchCrit.setNumOfBeds(Integer.parseInt(searchV.textBed.getText()));
 			}
 			
 			if(!searchV.textBath.getText().isEmpty())
 			{
-			currentUser.searchCrit.setNumOfBaths(Integer.parseInt(searchV.textBath.getText()));
+				currentUser.searchCrit.setNumOfBaths(Integer.parseInt(searchV.textBath.getText()));
 			}
 
 			searchV.dispose();
