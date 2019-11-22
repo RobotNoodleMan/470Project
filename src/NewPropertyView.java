@@ -38,7 +38,7 @@ public class NewPropertyView extends JFrame {
 		
 		
 		lblPropertyType = new JLabel("Property Type: ");
-		lblPropertyType.setBounds(61, 69, 128, 27);
+		lblPropertyType.setBounds(40, 69, 128, 27);
 		propertyForm.add(lblPropertyType);
 		
 		txtPropertyType = new JTextField();
@@ -46,31 +46,31 @@ public class NewPropertyView extends JFrame {
 		propertyForm.add(txtPropertyType);
 		
 		lblBathrooms = new JLabel("Number of Bathrooms: ");
-		lblBathrooms.setBounds(61, 119, 128, 27);
+		lblBathrooms.setBounds(40, 119, 149, 27);
 		propertyForm.add(lblBathrooms);
 		
 		txtBathrooms = new JTextField();
-		txtBathrooms.setBounds(177, 119, 201, 27);
+		txtBathrooms.setBounds(182, 119, 196, 27);
 		propertyForm.add(txtBathrooms);
 		
 		lblBedrooms = new JLabel("Number of Bedrooms: ");
-		lblBedrooms.setBounds(61, 155, 128, 27);
+		lblBedrooms.setBounds(40, 157, 128, 27);
 		propertyForm.add(lblBedrooms);
 		
 		txtBedrooms = new JTextField();
-		txtBedrooms.setBounds(177, 155, 201, 27);
+		txtBedrooms.setBounds(182, 155, 196, 27);
 		propertyForm.add(txtBedrooms);
 		
 		lblFurnished = new JLabel("Is it furnished? (True/False) ");
-		lblFurnished.setBounds(61, 236, 128, 27);
+		lblFurnished.setBounds(40, 236, 188, 27);
 		propertyForm.add(lblFurnished);
 		
 		txtFurnished = new JTextField();
-		txtFurnished.setBounds(141, 236, 237, 27);
+		txtFurnished.setBounds(238, 236, 140, 27);
 		propertyForm.add(txtFurnished);
 		
 		lblQuadrant = new JLabel("Quadrant ");
-		lblQuadrant.setBounds(61, 198, 128, 27);
+		lblQuadrant.setBounds(40, 198, 128, 27);
 		propertyForm.add(lblQuadrant);
 		
 		txtQuadrant = new JTextField();
