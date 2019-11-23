@@ -83,7 +83,7 @@ public class Database
 		try
         {
             createConnection();
-            PreparedStatement statement =  con.prepareStatement("SELECT * from  properties");/*write query inside of prepared statement*/
+            PreparedStatement statement =  con.prepareStatement("SELECT * from  properties where state = '1' ");/*write query inside of prepared statement*/
             ResultSet result = statement.executeQuery();
             while(result.next())
             {
