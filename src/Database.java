@@ -9,7 +9,7 @@ public class Database
 {
 	public static Connection con;
 	private final static String username = "root";
-	private final static String password = "12345";
+	private final static String password = "matan123";
 	
 	public Boolean queryUser(RegisteredUser u)
 	{
@@ -39,6 +39,11 @@ public class Database
             System.out.println(e.getMessage().toString());
         }
 		return false;
+	}
+	
+	// 0 = registered user, 1 = landlord, 2 = manager
+	public int verifyType(RegisteredUser u) {
+		
 	}
 	
 	public ArrayList<Property> fillList()
