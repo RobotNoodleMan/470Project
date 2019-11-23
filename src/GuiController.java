@@ -144,7 +144,7 @@ public class GuiController {
 					manager.setName(currentUser.getName());
 					manager.setPostedProperties(db.getLandLordProps(manager.getName()));
 					list.listModel.clear();
-					list.initializeLandLord();
+					list.initializeManager();
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
 				}
 				
