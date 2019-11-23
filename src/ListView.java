@@ -86,7 +86,6 @@ public class ListView {
 		southPane.setRightComponent(btnLandLordChangePropertyState);
 		
 		btnLandLordMakePayment = new JButton("Make Payment");
-		
 		rightPane.setLeftComponent(btnLandLordMakePayment);
 		
 	}
