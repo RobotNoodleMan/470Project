@@ -9,7 +9,7 @@ public class Database
 {
 	public static Connection con;
 	private final static String username = "root";
-	private final static String password = "matan123";
+	private final static String password = "12345";
 	
 	public Boolean queryUser(RegisteredUser u)
 	{

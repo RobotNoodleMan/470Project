@@ -28,8 +28,7 @@ public class ListView {
 	protected JButton btnLandLordMakePayment;
 	protected JLabel emptylbl;
 	protected JSplitPane rightPane;
-
-	
+	protected JButton btnGetRprt;
 	ListView() {
 		initializeList();
 	}
@@ -88,6 +87,17 @@ public class ListView {
 		btnLandLordMakePayment = new JButton("Make Payment");
 		rightPane.setLeftComponent(btnLandLordMakePayment);
 		
+		
+		
+	}
+	
+	public void initializeManager()
+	{
+		btnGetRprt = new JButton("Get Report");
+		southPane.setLeftComponent(btnGetRprt);
+		
+		btnLandLordChangePropertyState = new JButton("Change Property State");
+		southPane.setRightComponent(btnLandLordChangePropertyState);
 	}
 	
 	public static void main(String[] args) {
