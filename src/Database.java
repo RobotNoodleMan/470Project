@@ -41,9 +41,40 @@ public class Database
 		return false;
 	}
 	
-	// 0 = registered user, 1 = landlord, 2 = manager
-	public int verifyType(RegisteredUser u) {
-		
+	// registered user = 0, landlord = 1, manager = 2
+	public int verifyType(RegisteredUser u)	{
+		try
+        {
+            createConnection();
+            PreparedStatement statement =  con.prepareStatement("SELECT * from  users");/*write query inside of prepared statement*/
+            ResultSet result = statement.executeQuery();
+            while(result.next())
+            {
+               String rUser= result.getString("user_name");
+               String rPass = result.getString("password");
+               if((rUser.equals(u.getName()) && (rPass.equals(u.getPassword())) ))
+               {
+            	   if(result.getString("user_type").equals("landlord")) {
+            		   return 1;
+            	   }
+            	   if(result.getString("user_type").equals("manager")) {
+            		   return 2;
+            	   }
+            	   else 
+            		   return 0;
+               }
+            }
+
+            	
+            con.close();
+        }
+
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            System.out.println(e.getMessage().toString());
+        }
+		return -1;
 	}
 	
 	public ArrayList<Property> fillList()

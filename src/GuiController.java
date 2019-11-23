@@ -20,6 +20,7 @@ public class GuiController {
 	private Database db;
 	private RegisteredUser currentUser;
 	private LandLord landlord;
+	private Manager manager;
 	private NewPropertyView propV;
 	private ChangePropertyView cpropV;
 	//private SearchCriteria searchCriteria;
@@ -126,15 +127,26 @@ public class GuiController {
 			}
 			else
 			{
-				loginV.dispose();
-				landlord = new LandLord(db);
-				landlord.setName(currentUser.getName());
-				landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
-				list.listModel.clear();
-				list.initializeLandLord();
-				list.btnLandLordCreateProperty.addActionListener(new createPropertyControl());
-				list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+				if (db.verifyType(currentUser) == 1) {
+					loginV.dispose();
+					landlord = new LandLord(db);
+					landlord.setName(currentUser.getName());
+					landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
+					list.listModel.clear();
+					list.initializeLandLord();
+					list.btnLandLordCreateProperty.addActionListener(new createPropertyControl());
+					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+				}
 				
+				else if (db.verifyType(currentUser) == 2) {
+					loginV.dispose();
+					manager = new Manager(db);;
+					manager.setName(currentUser.getName());
+					manager.setPostedProperties(db.getLandLordProps(manager.getName()));
+					list.listModel.clear();
+					list.initializeLandLord();
+					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+				}
 				
 				
 				for(int i =0; i <landlord.getPostedProperties().size();i++)
