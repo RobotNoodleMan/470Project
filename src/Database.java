@@ -147,39 +147,6 @@ public class Database
 		return p;
 	}
 	
-	public ArrayList<Property> getReport()
-	{
-		ArrayList<Property> p = new ArrayList<Property> ();
-		try
-        {
-            createConnection();
-            PreparedStatement statement =  con.prepareStatement("SELECT * from  properties");/*write query inside of prepared statement*/
-            ResultSet result = statement.executeQuery();
-            while(result.next())
-            {
-            	Property prop = new Property();
-            	prop.setAddress(result.getString("property_address")); 
-            	prop.setFurnished(result.getString("furnished"));
-            	prop.setNumOfBaths(result.getInt("bath_num"));
-            	prop.setNumOfRooms(result.getInt("bed_num"));
-            	prop.setPropertyID(result.getInt("property_id"));
-            	prop.setPropertyState(result.getInt("state"));
-            	prop.setPropertyType(result.getString("type"));
-            	prop.setQuadrant(result.getString("quadrant"));
-            	prop.setIndexString();
-            	p.add(prop);
-            	
-            }
-        }
-		
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            System.out.println(e.getMessage().toString());
-        }
-		return p;
-	}
-	
 	
 	public static void main(String[] args) 
 	{ 
