@@ -174,6 +174,7 @@ public class GuiController {
 					landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
 					list.listModel.clear();
 					list.initializeLandLord();
+					cpropV = new ChangePropertyView();
 					list.btnLandLordCreateProperty.addActionListener(new createPropertyControl());
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
 					list.btnLandLordMakePayment.addActionListener(new makePaymentControl());
@@ -192,6 +193,7 @@ public class GuiController {
 					manager.setPostedProperties(db.getLandLordProps(manager.getName()));
 					list.listModel.clear();
 					list.initializeManager();
+					cpropV = new ChangePropertyView(1);
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
 					
 				
@@ -289,10 +291,9 @@ public class GuiController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			cpropV = new ChangePropertyView();
 			cpropV.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			cpropV.setVisible(true);
-			cpropV.bttnConfirm.addActionListener(new confirmPropertyControl());
+			cpropV.btnConfirm.addActionListener(new confirmPropertyControl());
 		}
 		
 	};
@@ -302,11 +303,11 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String s;			
-			s = "UPDATE properties \nSET state = " + Integer.parseInt(cpropV.txtNewState.getText())
+			s = "UPDATE properties \nSET state = " + Integer.parseInt(cpropV.dropState.getSelectedItem().toString())
 				+ " \nWHERE property_id = " + Integer.parseInt(cpropV.txtPropID.getText()) + ";";
 			db.executeQuery(s);
 			
-			
+			cpropV.dispose();
 		}
 		
 	};
