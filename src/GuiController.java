@@ -157,6 +157,7 @@ public class GuiController {
 			{
 				// Registered User
 				if (db.verifyType(currentUser) == 0) {
+					list.frame.setTitle("Logged in as User");
 					list.northPane.setLeftComponent(list.emptylbl);
 					instance.getLogin().dispose();
 					list.listModel.clear();
@@ -171,6 +172,7 @@ public class GuiController {
 				}
 				// Landlord
 				else if (db.verifyType(currentUser) == 1) {
+					list.frame.setTitle("Logged in as Landlord");
 					list.northPane.setLeftComponent(list.emptylbl);
 					instance.getLogin().dispose();
 					landlord = new LandLord(db);
@@ -191,6 +193,7 @@ public class GuiController {
 				}
 				// Manager
 				else if (db.verifyType(currentUser) == 2) {
+					list.frame.setTitle("Logged in as Manager");
 					list.northPane.setLeftComponent(list.emptylbl);
 					list.rightPane.setLeftComponent(list.btnSearch);
 					list.btnSearch.addActionListener(new searchActivate());
