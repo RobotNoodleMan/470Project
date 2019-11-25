@@ -93,6 +93,7 @@ public class GuiController {
 		public void actionPerformed(ActionEvent arg0) 
 		{
 			list.listModel.clear();
+			db.updateStateOfPropertiesIfOverduePayment();
 			ArrayList <Property> propertyList;
 			//String s = "" HERE IS WHERE WE UPDATE THE STATE!!!!!!!!!!!!! TODO
 
@@ -160,6 +161,7 @@ public class GuiController {
 					list.frame.setTitle("Logged in as User");
 					list.northPane.setLeftComponent(list.emptylbl);
 					instance.getLogin().dispose();
+					db.updateStateOfPropertiesIfOverduePayment();
 					list.listModel.clear();
 					list.initializeRegisteredUser();
 					list.btnRegUserNotification.addActionListener(new notificationControl());
@@ -178,6 +180,7 @@ public class GuiController {
 					landlord = new LandLord(db);
 					landlord.setName(currentUser.getName());
 					landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
+					db.updateStateOfPropertiesIfOverduePayment();
 					list.listModel.clear();
 					list.initializeLandLord();
 					cpropV = new ChangePropertyView();
@@ -202,6 +205,7 @@ public class GuiController {
 					manager = new Manager(db);;
 					manager.setName(currentUser.getName());
 					manager.setPostedProperties(db.getLandLordProps(manager.getName()));
+					db.updateStateOfPropertiesIfOverduePayment();
 					list.listModel.clear();
 					list.initializeManager();
 					cpropV = new ChangePropertyView(1);
@@ -278,7 +282,7 @@ public class GuiController {
 					 + "', '" + propV.txtQuadrant.getText() + "')";
 			db.executeQuery(s);
 			landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
-			
+			db.updateStateOfPropertiesIfOverduePayment();
 			list.listModel.clear();
 			
 			for(int i =0; i <landlord.getPostedProperties().size();i++)
@@ -371,6 +375,7 @@ public class GuiController {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			db.updateStateOfPropertiesIfOverduePayment();
 			list.listModel.clear();
 			ArrayList<Property> rentedList = new ArrayList<Property>();
 			rentedList = db.fillReportList();

@@ -270,26 +270,25 @@ public class Database
 	 
 	 
 	 
-		public String updateStateOfPropertiesIfOverduePayment(RegisteredUser u)	{
+		public void updateStateOfPropertiesIfOverduePayment()	{
 			try
 	        {
 	            createConnection();
-	            PreparedStatement statement =  con.prepareStatement("UPDATE rentingdb.properties, rentingdb.users SET state = 0 WHERE state = 1" + 
+	            PreparedStatement statement =  con.prepareStatement("UPDATE rentingdb.properties, rentingdb.users SET state = 0 WHERE state = 1\r\n" + 
 	            		"AND user_owner = users.user_name AND payment_due < NOW() and payment_paid is null;");
-	            statement.executeQuery();
+	            statement.executeUpdate();
 
-
-
-	            
+	                       
 	            	
 	            con.close();
 	        }
 			catch(SQLException e)
 			{
+				e.printStackTrace();
 				
 				System.err.println("SQL ERROR");
 			}
-			return null;
+			return;
 			
 			
 			
