@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.security.auth.login.FailedLoginException;
@@ -35,6 +37,23 @@ public class GuiController {
 		list.btnSearch.addActionListener(new searchActivate());
 		list.btnCriteria.addActionListener(new criteriaControl());
 	}
+	
+	/*
+	class registerControl implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			if(!registerView.textUsername.getText().isEmpty() && !registerView.textPassword.getText().isEmpty() &&
+					!registerView.)
+			
+
+
+			searchV.dispose();
+		}
+		
+	};
+	*/
 	
 	//This class controls the login button on the listView form
 	class loginControl implements ActionListener
@@ -74,6 +93,7 @@ public class GuiController {
 		public void actionPerformed(ActionEvent arg0) 
 		{
 			list.listModel.clear();
+			System.out.println("test");
 			//currentUser.searchCrit = new SearchCriteria();
 			//ArrayList <Property> propertyList = new ArrayList <Property> ();
 			ArrayList <Property> propertyList = db.fillList();
@@ -139,7 +159,19 @@ public class GuiController {
 					list.initializeLandLord();
 					list.btnLandLordCreateProperty.addActionListener(new createPropertyControl());
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+<<<<<<< HEAD
 					
+=======
+					list.btnLandLordMakePayment.addActionListener(new makePaymentControl());
+
+					LandLord.setDBPaymentInfo(currentUser, db);
+
+					
+					
+					
+					
+				
+>>>>>>> branch 'master' of https://github.com/RobotNoodleMan/480Project.git
 					for(int i =0; i <landlord.getPostedProperties().size();i++)
 					{
 						list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
@@ -154,15 +186,61 @@ public class GuiController {
 					list.listModel.clear();
 					list.initializeManager();
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+<<<<<<< HEAD
 					list.btnGetRprt.addActionListener(new managerGetReport());
 				}
+=======
+					
+>>>>>>> branch 'master' of https://github.com/RobotNoodleMan/480Project.git
 				
 				
+<<<<<<< HEAD
+=======
+					ArrayList <Property> propertyList = db.fillList();
+					ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
+					for(int i =0;i<filterList.size();i++)
+					{
+						list.listModel.addElement(filterList.get(i).getIndexString());
+					}
+				}
+
+				
+
+				
+>>>>>>> branch 'master' of https://github.com/RobotNoodleMan/480Project.git
 			}
 			
 		}
 		
 	};
+	
+	class makePaymentControl implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			if(true)		//Going to be if not already paid TODO ie if payment_paid is not null | need to wait until merge an then 
+				//put in db query payment that checks if payment_paid is null or not
+			{
+				System.out.println("test");
+				Timestamp time = new Timestamp(System.currentTimeMillis());
+				String timePaid = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(time);
+				JOptionPane.showMessageDialog(list.northPane,"Payment Made at :" + timePaid + "!");	
+				String s;
+				s = "UPDATE rentingdb.users SET payment_paid = CURRENT_TIMESTAMP WHERE users.user_name = '"+currentUser.getName()+"'";
+				db.executeQuery(s);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(list.northPane, "Payment Already Made!");
+			}
+
+		}
+		
+	};
+	
+	
 	//This controls the createProperty on the ListView for landlord
 	class createPropertyControl implements ActionListener
 	{
@@ -170,6 +248,7 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
+			
 			propV = new NewPropertyView();
 			propV.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			propV.setVisible(true);
@@ -233,6 +312,7 @@ public class GuiController {
 		
 	};
 	
+<<<<<<< HEAD
 	//
 	class managerGetReport implements ActionListener
 	{
@@ -251,6 +331,46 @@ public class GuiController {
 		
 	};
 	
+=======
+	class sendEmailControl implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			emailV = new EmailView();
+			emailV.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			emailV.setVisible(true);
+			emailV.btnSendEmail.addActionListener(new confirmEmailControl());
+		}
+		
+	};
+	
+	class confirmEmailControl implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JOptionPane.showMessageDialog(emailV.contentPane,"Email Sent Successfully!");
+			emailV.dispose();
+		}
+	};
+	
+	class notificationControl implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (currentUser.recieveNotifications) {
+				currentUser.setNotifcation(false);
+				JOptionPane.showMessageDialog(list.frame, "You have unsubscribed successfully.");
+			}
+				
+			else {
+				currentUser.setNotifcation(true);
+				JOptionPane.showMessageDialog(list.frame,"You have subscribed successfully!\n"
+													   + "You will recieve email notifcations based your search criteria.");
+			}
+		}
+		
+	};
+>>>>>>> branch 'master' of https://github.com/RobotNoodleMan/480Project.git
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

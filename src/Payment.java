@@ -1,22 +1,24 @@
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 public class Payment {
 	protected int paymentState;
 	protected double amount;
-	protected Date postedDate;
-	protected Date paidDate;
+	protected Timestamp postedTimestamp;
+	protected Timestamp paidTimestamp;
+	protected Timestamp dueTimestamp;
 	
 	public Payment(double a) {
 		// TODO Auto-generated constructor stub
 		paymentState = 0;
 		amount = a;
-		postedDate = new Date (System.currentTimeMillis());
+		postedTimestamp = new Timestamp (System.currentTimeMillis());
 	}
 	
 	public void makePayment(double amountPaid) {
 		paymentState = 1;
 		amount -= amountPaid;
-		paidDate = new Date (System.currentTimeMillis());
+		paidTimestamp = new Timestamp (System.currentTimeMillis());
 	}
 
 	public int getPaymentState() {
@@ -35,21 +37,46 @@ public class Payment {
 		this.amount = amount;
 	}
 	
-	public Date getPostedDate() {
-		return postedDate;
+	public Timestamp getPostedTimestamp() {
+		return postedTimestamp;
 	}
 	
-	public void setPostedDate(Date postedDate) {
-		this.postedDate = postedDate;
+	public void setPostedTimestamp(Timestamp postedTimestamp) {
+		this.postedTimestamp = postedTimestamp;
 	}
 	
-	public Date getPaidDate() {
-		return paidDate;
+	public Timestamp getPaidTimestamp() {
+		return paidTimestamp;
 	}
 	
-	public void setPaidDate(Date paidDate) {
-		this.paidDate = paidDate;
+	public void setPaidTimestamp(Timestamp paidTimestamp) {
+		this.paidTimestamp = paidTimestamp;
+	}
+	
+	public Timestamp getDueTimestamp() {
+		return dueTimestamp;
+	}
+	
+	public void setDueTimestamp(Timestamp dueTimestamp) {
+		this.dueTimestamp = dueTimestamp;
 	}
 	
 	
+	public String timeToTimestampString(Timestamp timestamp)
+	{
+		String timeStamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(timestamp);
+		return timeStamp;
+	}
+	
+	public static void main(String[] args) {
+		
+		Payment p = new Payment(1);
+		System.out.println(p.timeToTimestampString(p.postedTimestamp));
+		
+	}
+	
+
 }
+	
+	
+

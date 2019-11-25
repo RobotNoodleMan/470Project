@@ -12,7 +12,7 @@ import javax.swing.JSplitPane;
 
 public class ListView {
 
-	private JFrame frame;
+	protected JFrame frame;
 	
 	private JList <String> list;
 	protected DefaultListModel<String> listModel;
@@ -23,9 +23,11 @@ public class ListView {
 	protected JButton btnSearch;
 	protected JButton btnCriteria;
 	protected JButton btnLogin;
+	protected JButton btnSendEmail;
 	protected JButton btnLandLordCreateProperty;
 	protected JButton btnLandLordChangePropertyState;
 	protected JButton btnLandLordMakePayment;
+	protected JButton btnRegUserNotification;
 	protected JLabel emptylbl;
 	protected JSplitPane rightPane;
 	protected JButton btnGetRprt;
@@ -70,10 +72,19 @@ public class ListView {
 		rightPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		frame.getContentPane().add(rightPane, BorderLayout.WEST);
 		
-		rightPane.setLeftComponent(emptylbl);
+		btnSendEmail = new JButton("Send Email");
+		rightPane.setLeftComponent(btnSendEmail);
+		
 		rightPane.setRightComponent(emptylbl);
 		
 		frame.setVisible(true);
+	}
+	
+	public void initializeRegisteredUser() 
+	{
+		btnRegUserNotification = new JButton("Subscribe");
+		rightPane.setRightComponent(btnRegUserNotification);
+		
 	}
 	
 	public void initializeLandLord()
@@ -85,7 +96,7 @@ public class ListView {
 		southPane.setRightComponent(btnLandLordChangePropertyState);
 		
 		btnLandLordMakePayment = new JButton("Make Payment");
-		rightPane.setLeftComponent(btnLandLordMakePayment);
+		rightPane.setRightComponent(btnLandLordMakePayment);
 		
 		
 		
