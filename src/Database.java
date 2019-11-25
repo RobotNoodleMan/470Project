@@ -78,6 +78,38 @@ public class Database
 		return -1;
 	}
 	
+	public ArrayList<Property> fillManagerList()
+	{
+		ArrayList<Property> p = new ArrayList<Property> ();
+		try
+        {
+            createConnection();
+            PreparedStatement statement =  con.prepareStatement("SELECT * from  properties");/*write query inside of prepared statement*/
+            ResultSet result = statement.executeQuery();
+            while(result.next())
+            {
+            	Property prop = new Property();
+            	prop.setAddress(result.getString("property_address")); 
+            	prop.setFurnished(result.getString("furnished"));
+            	prop.setNumOfBaths(result.getInt("bath_num"));
+            	prop.setNumOfRooms(result.getInt("bed_num"));
+            	prop.setPropertyID(result.getInt("property_id"));
+            	prop.setPropertyState(result.getInt("state"));
+            	prop.setPropertyType(result.getString("type"));
+            	prop.setQuadrant(result.getString("quadrant"));
+            	prop.setIndexString();
+            	p.add(prop);
+            	
+            }
+        }
+		
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            System.out.println(e.getMessage().toString());
+        }
+		return p;
+	}
 	public ArrayList<Property> fillList()
 	{
 		ArrayList<Property> p = new ArrayList<Property> ();
@@ -85,6 +117,39 @@ public class Database
         {
             createConnection();
             PreparedStatement statement =  con.prepareStatement("SELECT * from  properties where state = '1' ");/*write query inside of prepared statement*/
+            ResultSet result = statement.executeQuery();
+            while(result.next())
+            {
+            	Property prop = new Property();
+            	prop.setAddress(result.getString("property_address")); 
+            	prop.setFurnished(result.getString("furnished"));
+            	prop.setNumOfBaths(result.getInt("bath_num"));
+            	prop.setNumOfRooms(result.getInt("bed_num"));
+            	prop.setPropertyID(result.getInt("property_id"));
+            	prop.setPropertyState(result.getInt("state"));
+            	prop.setPropertyType(result.getString("type"));
+            	prop.setQuadrant(result.getString("quadrant"));
+            	prop.setIndexString();
+            	p.add(prop);
+            	
+            }
+        }
+		
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            System.out.println(e.getMessage().toString());
+        }
+		return p;
+	}
+	
+	public ArrayList<Property> fillReportList()
+	{
+		ArrayList<Property> p = new ArrayList<Property> ();
+		try
+        {
+            createConnection();
+            PreparedStatement statement =  con.prepareStatement("SELECT * from  properties where state = '2' ");/*write query inside of prepared statement*/
             ResultSet result = statement.executeQuery();
             while(result.next())
             {
@@ -147,40 +212,6 @@ public class Database
         }
 		return p;
 	}
-	
-	public ArrayList<Property> fillReport()
-	{
-		ArrayList<Property> p = new ArrayList<Property> ();
-		try
-        {
-            createConnection();
-            PreparedStatement statement =  con.prepareStatement("SELECT * from  properties");/*write query inside of prepared statement*/
-            ResultSet result = statement.executeQuery();
-            while(result.next())
-            {
-            	Property prop = new Property();
-            	prop.setAddress(result.getString("property_address")); 
-            	prop.setFurnished(result.getString("furnished"));
-            	prop.setNumOfBaths(result.getInt("bath_num"));
-            	prop.setNumOfRooms(result.getInt("bed_num"));
-            	prop.setPropertyID(result.getInt("property_id"));
-            	prop.setPropertyState(result.getInt("state"));
-            	prop.setPropertyType(result.getString("type"));
-            	prop.setQuadrant(result.getString("quadrant"));
-            	prop.setIndexString();
-            	p.add(prop);
-            	
-            }
-        }
-		
-        catch(Exception e)
-        {
-            e.printStackTrace();
-            System.out.println(e.getMessage().toString());
-        }
-		return p;
-	}
-	
 	
 	public static void main(String[] args) 
 	{ 

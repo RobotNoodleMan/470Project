@@ -1,5 +1,3 @@
-//Test comment
-
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,7 +24,6 @@ public class GuiController {
 	private NewPropertyView propV;
 	private ChangePropertyView cpropV;
 	private EmailView emailV;
-	//private SearchCriteria searchCriteria;
 	
 	//Initial creation of the listView
 	public GuiController()
@@ -95,17 +92,19 @@ public class GuiController {
 		public void actionPerformed(ActionEvent arg0) 
 		{
 			list.listModel.clear();
-			System.out.println("test");
+			ArrayList <Property> propertyList;
 			//String s = "" HERE IS WHERE WE UPDATE THE STATE!!!!!!!!!!!!! TODO
-			//currentUser.searchCrit = new SearchCriteria();
-			//ArrayList <Property> propertyList = new ArrayList <Property> ();
-			ArrayList <Property> propertyList = db.fillList();
+
+			if (db.verifyType(currentUser) == 2) {
+				propertyList = db.fillManagerList();
+			}
+			else
+				propertyList = db.fillList();
 			ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
 			for(int i =0;i<filterList.size();i++)
 			{
 				list.listModel.addElement(filterList.get(i).getIndexString());
 			}
-			//currentUser.searchCrit = new SearchCriteria();
 		}
 		
 	}
@@ -137,6 +136,7 @@ public class GuiController {
 		}
 		
 	};
+	
 	//This controls the login button on LoginView
 	class loginConfirmation implements ActionListener
 	{
@@ -153,8 +153,9 @@ public class GuiController {
 			}
 			else
 			{
-
+				// Registered User
 				if (db.verifyType(currentUser) == 0) {
+					list.northPane.setLeftComponent(list.emptylbl);
 					loginV.dispose();
 					list.listModel.clear();
 					list.initializeRegisteredUser();
@@ -166,9 +167,10 @@ public class GuiController {
 						list.listModel.addElement(filterList.get(i).getIndexString());
 					}
 				}
-				if (db.verifyType(currentUser) == 1) {
+				// Landlord
+				else if (db.verifyType(currentUser) == 1) {
+					list.northPane.setLeftComponent(list.emptylbl);
 					loginV.dispose();
-					System.out.println("TEST");
 					landlord = new LandLord(db);
 					landlord.setName(currentUser.getName());
 					landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
@@ -185,8 +187,12 @@ public class GuiController {
 						list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
 					}
 				}
-				
+				// Manager
 				else if (db.verifyType(currentUser) == 2) {
+					list.northPane.setLeftComponent(list.emptylbl);
+					list.rightPane.setLeftComponent(list.btnSearch);
+					list.btnSearch.addActionListener(new searchActivate());
+
 					loginV.dispose();
 					manager = new Manager(db);;
 					manager.setName(currentUser.getName());
@@ -195,24 +201,17 @@ public class GuiController {
 					list.initializeManager();
 					cpropV = new ChangePropertyView(1);
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+					list.btnGetRprt.addActionListener (new recieveReportControl());
 					
-				
-				
-					ArrayList <Property> propertyList = db.fillList();
-					ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
-					for(int i =0;i<filterList.size();i++)
+					ArrayList <Property> propertyList = db.fillManagerList();
+					
+					for(int i =0;i<propertyList.size();i++)
 					{
-						list.listModel.addElement(filterList.get(i).getIndexString());
+						list.listModel.addElement(propertyList.get(i).getIndexString());
 					}
-				}
-
-				
-
-				
-			}
-			
+				}	
+			}		
 		}
-		
 	};
 	
 	class makePaymentControl implements ActionListener
@@ -311,7 +310,7 @@ public class GuiController {
 		}
 		
 	};
-	
+	//Opens up the send email view
 	class sendEmailControl implements ActionListener {
 
 		@Override
@@ -323,7 +322,7 @@ public class GuiController {
 		}
 		
 	};
-	
+	//Controls the send email button on the email view
 	class confirmEmailControl implements ActionListener {
 		
 		@Override
@@ -362,6 +361,26 @@ public class GuiController {
 		}
 		
 	};
+	
+	class recieveReportControl implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			list.listModel.clear();
+			ArrayList<Property> rentedList = new ArrayList<Property>();
+			rentedList = db.fillReportList();
+			
+			manager.fillTotals();
+			list.listModel.addElement("Today's summary:");
+			list.listModel.addElement(manager.getReportVal());
+			list.listModel.addElement("Properties that are rented:");
+
+			for(int i =0; i < rentedList.size();i++)
+			{
+				list.listModel.addElement(rentedList.get(i).getIndexString());
+			}
+		}
+	}
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

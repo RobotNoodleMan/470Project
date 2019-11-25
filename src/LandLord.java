@@ -4,7 +4,7 @@ public class LandLord extends RegisteredUser {
 	private ArrayList<Property> postedProperties;
 	private ArrayList<Payment> paymentHistory;
 	private ChangeProperty changer;
-	private Database db;
+	protected Database db;
 	
 	public LandLord(Database da) {
 		db = da;
