@@ -3,6 +3,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Database 
@@ -202,4 +203,41 @@ public class Database
 	            System.out.println("False query");
 	        }
 	    }
+	 
+	 
+	 
+		public String selectQuery(RegisteredUser u)	{
+			try
+	        {
+	            createConnection();
+	            PreparedStatement statement =  con.prepareStatement("Select properties.state, users.payment_due, users.payment_paid from properties, users WHERE users.user_name = properties.owner_user");/*write query inside of prepared statement*/
+	            ResultSet result = statement.executeQuery();
+
+	            while(result.next())
+	            {
+	               String rUser= result.getString("properties.state");
+	               Timestamp timeDue = result.getTimestamp("users.payment_due");
+	               Timestamp timePaid = result.getTimestamp("payment_paid");
+	               
+	               if(timePaid == null)
+	               {
+	            	   if(timeDue.after(new Timestamp(System.currentTimeMillis())))
+	            	   {	//TODO
+	            		   statement = con.prepareStatement("UPDATE rentingdb.properties SET state = 0 WHERE (SELECT"
+	            		   		+ "properties.state, users.payment_due, users.payment_paid from properties, users WHERE users.user_name = properties.owner_user)");
+	            		   
+	            	   }
+	            	   
+	               }
+	               
+
+	            }
+
+	            
+	            	
+	            con.close();
+	        }
+			
+			
+			
 }

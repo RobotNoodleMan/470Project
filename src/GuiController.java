@@ -25,6 +25,7 @@ public class GuiController {
 	private Manager manager;
 	private NewPropertyView propV;
 	private ChangePropertyView cpropV;
+	private EmailView emailV;
 	//private SearchCriteria searchCriteria;
 	
 	//Initial creation of the listView
@@ -94,6 +95,7 @@ public class GuiController {
 		{
 			list.listModel.clear();
 			System.out.println("test");
+			//String s = "" HERE IS WHERE WE UPDATE THE STATE!!!!!!!!!!!!! TODO
 			//currentUser.searchCrit = new SearchCriteria();
 			//ArrayList <Property> propertyList = new ArrayList <Property> ();
 			ArrayList <Property> propertyList = db.fillList();
