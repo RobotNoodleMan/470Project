@@ -52,6 +52,8 @@ public class LandLord extends RegisteredUser {
 	
 	}
 	
+	
+	
 
 
 	

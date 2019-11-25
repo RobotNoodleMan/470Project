@@ -21,11 +21,11 @@ public class GuiController {
 	private SearchView searchV;
 	private Database db;
 	private RegisteredUser currentUser;
-	private EmailView emailV;
 	private LandLord landlord;
 	private Manager manager;
 	private NewPropertyView propV;
 	private ChangePropertyView cpropV;
+	private EmailView emailV;
 	//private SearchCriteria searchCriteria;
 	
 	//Initial creation of the listView
@@ -37,6 +37,7 @@ public class GuiController {
 		list.btnLogin.addActionListener(new loginControl());
 		list.btnSearch.addActionListener(new searchActivate());
 		list.btnCriteria.addActionListener(new criteriaControl());
+		list.btnSendEmail.addActionListener(new sendEmailControl());
 	}
 	
 	/*
@@ -95,6 +96,7 @@ public class GuiController {
 		{
 			list.listModel.clear();
 			System.out.println("test");
+			//String s = "" HERE IS WHERE WE UPDATE THE STATE!!!!!!!!!!!!! TODO
 			//currentUser.searchCrit = new SearchCriteria();
 			//ArrayList <Property> propertyList = new ArrayList <Property> ();
 			ArrayList <Property> propertyList = db.fillList();
@@ -151,8 +153,22 @@ public class GuiController {
 			}
 			else
 			{
+
+				if (db.verifyType(currentUser) == 0) {
+					loginV.dispose();
+					list.listModel.clear();
+					list.initializeRegisteredUser();
+					list.btnRegUserNotification.addActionListener(new notificationControl());
+					ArrayList <Property> propertyList = db.fillList();
+					ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
+					for(int i =0;i<filterList.size();i++)
+					{
+						list.listModel.addElement(filterList.get(i).getIndexString());
+					}
+				}
 				if (db.verifyType(currentUser) == 1) {
 					loginV.dispose();
+					System.out.println("TEST");
 					landlord = new LandLord(db);
 					landlord.setName(currentUser.getName());
 					landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
@@ -163,12 +179,6 @@ public class GuiController {
 					list.btnLandLordMakePayment.addActionListener(new makePaymentControl());
 
 					LandLord.setDBPaymentInfo(currentUser, db);
-
-					
-					
-					
-					
-				
 					for(int i =0; i <landlord.getPostedProperties().size();i++)
 					{
 						list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());

@@ -1,24 +1,22 @@
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
+import java.sql.Date;
 
 public class Payment {
 	protected int paymentState;
 	protected double amount;
-	protected Timestamp postedTimestamp;
-	protected Timestamp paidTimestamp;
-	protected Timestamp dueTimestamp;
+	protected Date postedDate;
+	protected Date paidDate;
 	
 	public Payment(double a) {
 		// TODO Auto-generated constructor stub
 		paymentState = 0;
 		amount = a;
-		postedTimestamp = new Timestamp (System.currentTimeMillis());
+		postedDate = new Date (System.currentTimeMillis());
 	}
 	
 	public void makePayment(double amountPaid) {
 		paymentState = 1;
 		amount -= amountPaid;
-		paidTimestamp = new Timestamp (System.currentTimeMillis());
+		paidDate = new Date (System.currentTimeMillis());
 	}
 
 	public int getPaymentState() {
@@ -37,46 +35,21 @@ public class Payment {
 		this.amount = amount;
 	}
 	
-	public Timestamp getPostedTimestamp() {
-		return postedTimestamp;
+	public Date getPostedDate() {
+		return postedDate;
 	}
 	
-	public void setPostedTimestamp(Timestamp postedTimestamp) {
-		this.postedTimestamp = postedTimestamp;
+	public void setPostedDate(Date postedDate) {
+		this.postedDate = postedDate;
 	}
 	
-	public Timestamp getPaidTimestamp() {
-		return paidTimestamp;
+	public Date getPaidDate() {
+		return paidDate;
 	}
 	
-	public void setPaidTimestamp(Timestamp paidTimestamp) {
-		this.paidTimestamp = paidTimestamp;
-	}
-	
-	public Timestamp getDueTimestamp() {
-		return dueTimestamp;
-	}
-	
-	public void setDueTimestamp(Timestamp dueTimestamp) {
-		this.dueTimestamp = dueTimestamp;
+	public void setPaidDate(Date paidDate) {
+		this.paidDate = paidDate;
 	}
 	
 	
-	public String timeToTimestampString(Timestamp timestamp)
-	{
-		String timeStamp = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(timestamp);
-		return timeStamp;
-	}
-	
-	public static void main(String[] args) {
-		
-		Payment p = new Payment(1);
-		System.out.println(p.timeToTimestampString(p.postedTimestamp));
-		
-	}
-	
-
 }
-	
-	
-
