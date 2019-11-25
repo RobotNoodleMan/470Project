@@ -327,7 +327,19 @@ public class GuiController {
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			JOptionPane.showMessageDialog(emailV.contentPane,"Email Sent Successfully!");
+			ArrayList<Property> fullList = new ArrayList<Property>();
+			fullList = db.fillList();
+			Property exists = null;
+			for (int i = 0; i < fullList.size(); i++) {
+				if (Integer.parseInt(emailV.txtPropID.getText()) == fullList.get(i).getPropertyID()) {
+					exists = fullList.get(i);
+				}
+			}
+			if (exists != null)
+				JOptionPane.showMessageDialog(emailV.contentPane,"Email Sent Successfully!");
+			else
+				JOptionPane.showMessageDialog(emailV.contentPane, "Email not sent. Property ID not found.");
+			
 			emailV.dispose();
 		}
 	};
