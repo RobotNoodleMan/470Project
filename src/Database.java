@@ -204,13 +204,14 @@ public class Database
 	        }
 	    }
 	 
+	 /*
 	 
 	 
 		public String selectQuery(RegisteredUser u)	{
 			try
 	        {
 	            createConnection();
-	            PreparedStatement statement =  con.prepareStatement("Select properties.state, users.payment_due, users.payment_paid from properties, users WHERE users.user_name = properties.owner_user");/*write query inside of prepared statement*/
+	            PreparedStatement statement =  con.prepareStatement("Select properties.state, users.payment_due, users.payment_paid from properties, users WHERE users.user_name = properties.owner_user");
 	            ResultSet result = statement.executeQuery();
 
 	            while(result.next())
@@ -238,6 +239,7 @@ public class Database
 	            con.close();
 	        }
 			
+		*/	
 			
 			
 }
