@@ -26,6 +26,7 @@ public class GuiController {
 	private EmailView emailV;
 	//private SearchCriteria searchCriteria;
 	
+	//Initial creation of the listView
 	public GuiController()
 	{
 		list = new ListView();
@@ -37,6 +38,7 @@ public class GuiController {
 		list.btnSendEmail.addActionListener(new sendEmailControl());
 	}
 	
+	//This class controls the login button on the listView form
 	class loginControl implements ActionListener
 	{
 
@@ -50,7 +52,7 @@ public class GuiController {
 		}
 		
 	};
-	
+	//This class controls the search criteria button on listView
 	class criteriaControl implements ActionListener
 	{
 		@Override
@@ -66,7 +68,7 @@ public class GuiController {
 		}
 		
 	};
-	
+	//This class controls the search button on ListView
 	class searchActivate implements ActionListener
 	{
 
@@ -87,6 +89,7 @@ public class GuiController {
 		
 	}
 	
+	//This class controls the set search Criteria button on the SearchCriteriaView 
 	class searchControl implements ActionListener
 	{
 		@Override
@@ -113,7 +116,7 @@ public class GuiController {
 		}
 		
 	};
-
+	//This controls the login button on LoginView
 	class loginConfirmation implements ActionListener
 	{
 
@@ -178,7 +181,7 @@ public class GuiController {
 		}
 		
 	};
-	
+	//This controls the createProperty on the ListView for landlord
 	class createPropertyControl implements ActionListener
 	{
 
@@ -193,7 +196,7 @@ public class GuiController {
 		}
 		
 	};
-	
+	//This controls the addProperty button on the NewPropertyView
 	class addPropertyControl implements ActionListener
 	{
 
@@ -220,7 +223,7 @@ public class GuiController {
 		}
 		
 	};
-	
+	//This controls the change property button on the landlords listview
 	class changePropertyControl implements ActionListener
 	{
 
@@ -233,7 +236,7 @@ public class GuiController {
 		}
 		
 	};
-	
+	//This controls the confirm property button on the changePropertyView
 	class confirmPropertyControl implements ActionListener {
 
 		@Override
