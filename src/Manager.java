@@ -4,15 +4,18 @@ public class Manager extends LandLord
 {
 	
 	private ArrayList<Property> propertiesReport;
+	private int numOfHouses;
+	private int numOfRented;
+	private int numOfActive;
 	
 	public Manager(Database da) 
 	{
 		super(da);
 	}
 	
-	public void getReport()
+	public ArrayList<Property> getReport()
 	{
-		
+		return propertiesReport;
 	}
 	
 	
