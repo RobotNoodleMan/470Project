@@ -23,6 +23,7 @@ public class GuiController {
 	private Manager manager;
 	private NewPropertyView propV;
 	private ChangePropertyView cpropV;
+	private EmailView emailV;
 	//private SearchCriteria searchCriteria;
 	
 	public GuiController()
@@ -33,6 +34,7 @@ public class GuiController {
 		list.btnLogin.addActionListener(new loginControl());
 		list.btnSearch.addActionListener(new searchActivate());
 		list.btnCriteria.addActionListener(new criteriaControl());
+		list.btnSendEmail.addActionListener(new sendEmailControl());
 	}
 	
 	class loginControl implements ActionListener
@@ -127,7 +129,19 @@ public class GuiController {
 			}
 			else
 			{
-				if (db.verifyType(currentUser) == 1) {
+				if (db.verifyType(currentUser) == 0) {
+					loginV.dispose();
+					list.listModel.clear();
+					list.initializeRegisteredUser();
+					list.btnRegUserNotification.addActionListener(new notificationControl());
+					ArrayList <Property> propertyList = db.fillList();
+					ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
+					for(int i =0;i<filterList.size();i++)
+					{
+						list.listModel.addElement(filterList.get(i).getIndexString());
+					}
+				}
+				else if (db.verifyType(currentUser) == 1) {
 					loginV.dispose();
 					landlord = new LandLord(db);
 					landlord.setName(currentUser.getName());
@@ -136,24 +150,29 @@ public class GuiController {
 					list.initializeLandLord();
 					list.btnLandLordCreateProperty.addActionListener(new createPropertyControl());
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+					
+				
+					for(int i =0; i <landlord.getPostedProperties().size();i++)
+					{
+						list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
+					}
 				}
 				
 				else if (db.verifyType(currentUser) == 2) {
 					loginV.dispose();
-					manager = new Manager(db);;
+					manager = new Manager(db);
 					manager.setName(currentUser.getName());
 					manager.setPostedProperties(db.getLandLordProps(manager.getName()));
 					list.listModel.clear();
 					list.initializeManager();
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+					ArrayList <Property> propertyList = db.fillList();
+					ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
+					for(int i =0;i<filterList.size();i++)
+					{
+						list.listModel.addElement(filterList.get(i).getIndexString());
+					}
 				}
-				
-				
-				for(int i =0; i <landlord.getPostedProperties().size();i++)
-				{
-					list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
-				}
-				
 			}
 			
 		}
@@ -229,6 +248,44 @@ public class GuiController {
 		
 	};
 	
+	class sendEmailControl implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			emailV = new EmailView();
+			emailV.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			emailV.setVisible(true);
+			emailV.btnSendEmail.addActionListener(new confirmEmailControl());
+		}
+		
+	};
+	
+	class confirmEmailControl implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JOptionPane.showMessageDialog(emailV.contentPane,"Email Sent Successfully!");
+			emailV.dispose();
+		}
+	};
+	
+	class notificationControl implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (currentUser.recieveNotifications) {
+				currentUser.setNotifcation(false);
+				JOptionPane.showMessageDialog(list.frame, "You have unsubscribed successfully.");
+			}
+				
+			else {
+				currentUser.setNotifcation(true);
+				JOptionPane.showMessageDialog(list.frame,"You have subscribed successfully!\n"
+													   + "You will recieve email notifcations based your search criteria.");
+			}
+		}
+		
+	};
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
