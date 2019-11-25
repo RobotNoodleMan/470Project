@@ -154,6 +154,7 @@ public class GuiController {
 			{
 				if (db.verifyType(currentUser) == 1) {
 					loginV.dispose();
+					System.out.println("TEST");
 					landlord = new LandLord(db);
 					landlord.setName(currentUser.getName());
 					landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));

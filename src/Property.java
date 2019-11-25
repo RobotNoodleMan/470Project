@@ -1,5 +1,3 @@
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class Property {
 	protected int numOfRooms;
@@ -118,18 +116,4 @@ public class Property {
 		this.address = address;
 	}
 	
-	/* TODO
-	public static void changeProperyStateIfPastDueDate(Property p, Database db)
-	{
-		String s;
-		s = "Select payment_due From properties WHERE state = 1" +	//State 1 is active?
-				 " AND property_id = " + p.propertyID + ";";
-		
-		ResultSet rs = query.executeSelctQuery(s);
-		s = "UPDATE properties \nSET state = 2" +		//TODO figure out if 2 is the proper state
-			" \nWHERE property_id = " + p.propertyID + ";";
-		db.executeQuery(s);
-		
-	}
-	*/
 }
