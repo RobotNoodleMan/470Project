@@ -6,7 +6,7 @@ import javax.swing.event.*;
 
 public class EmailView extends JFrame {
 	protected JPanel contentPane;
-    protected JTextArea txtPropID;
+    protected JTextField txtPropID;
     protected JLabel lblPropID;
     protected JLabel lblMsgLandlord;
     protected JTextArea txtMsgLandlord;
@@ -20,7 +20,7 @@ public class EmailView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-        txtPropID = new JTextArea (5, 5);
+        txtPropID = new JTextField ();
         lblPropID = new JLabel ("Property ID:");
         lblMsgLandlord = new JLabel ("Message to Landlord:");
         txtMsgLandlord = new JTextArea (5, 5);
