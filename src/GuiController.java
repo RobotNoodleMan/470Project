@@ -166,6 +166,12 @@ public class GuiController {
 					
 					
 					
+					
+				
+					for(int i =0; i <landlord.getPostedProperties().size();i++)
+					{
+						list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
+					}
 				}
 				
 				else if (db.verifyType(currentUser) == 2) {
@@ -177,20 +183,18 @@ public class GuiController {
 					list.initializeManager();
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
 					
-				}
-				else
-				{
-					loginV.dispose();
-					//No changes to the GUI
-					//Will display properties that are being followed
-					
-				}
 				
 				
-				for(int i =0; i <landlord.getPostedProperties().size();i++)
-				{
-					list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
+					ArrayList <Property> propertyList = db.fillList();
+					ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
+					for(int i =0;i<filterList.size();i++)
+					{
+						list.listModel.addElement(filterList.get(i).getIndexString());
+					}
 				}
+
+				
+
 				
 			}
 			
@@ -296,6 +300,44 @@ public class GuiController {
 		
 	};
 	
+	class sendEmailControl implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			emailV = new EmailView();
+			emailV.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			emailV.setVisible(true);
+			emailV.btnSendEmail.addActionListener(new confirmEmailControl());
+		}
+		
+	};
+	
+	class confirmEmailControl implements ActionListener {
+		
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JOptionPane.showMessageDialog(emailV.contentPane,"Email Sent Successfully!");
+			emailV.dispose();
+		}
+	};
+	
+	class notificationControl implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			if (currentUser.recieveNotifications) {
+				currentUser.setNotifcation(false);
+				JOptionPane.showMessageDialog(list.frame, "You have unsubscribed successfully.");
+			}
+				
+			else {
+				currentUser.setNotifcation(true);
+				JOptionPane.showMessageDialog(list.frame,"You have subscribed successfully!\n"
+													   + "You will recieve email notifcations based your search criteria.");
+			}
+		}
+		
+	};
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
