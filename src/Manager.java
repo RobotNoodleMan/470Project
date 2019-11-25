@@ -10,13 +10,13 @@ public class Manager extends LandLord
 		super(da);
 	}
 	
-	public void getReport()
+	public  ArrayList<Property>  getReport()
 	{
-		
+		return propertiesReport;
 	}
 	
 	
-	public void setPostedProperties(ArrayList<Property> report) {
+	public void setReport(ArrayList<Property> report) {
 		this.propertiesReport = report;
 	}
 	

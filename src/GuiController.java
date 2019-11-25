@@ -139,6 +139,11 @@ public class GuiController {
 					list.initializeLandLord();
 					list.btnLandLordCreateProperty.addActionListener(new createPropertyControl());
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+					
+					for(int i =0; i <landlord.getPostedProperties().size();i++)
+					{
+						list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
+					}
 				}
 				
 				else if (db.verifyType(currentUser) == 2) {
@@ -149,13 +154,9 @@ public class GuiController {
 					list.listModel.clear();
 					list.initializeManager();
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+					list.btnGetRprt.addActionListener(new managerGetReport());
 				}
 				
-				
-				for(int i =0; i <landlord.getPostedProperties().size();i++)
-				{
-					list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
-				}
 				
 			}
 			
@@ -232,13 +233,34 @@ public class GuiController {
 		
 	};
 	
+	//
+	class managerGetReport implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			
+			manager.setReport(db.getReport());
+			list.listModel.clear();
+			
+			for(int i = 0; i<manager.getReport().size(); i++)
+			{
+				list.listModel.addElement(manager.getReport().get(i).getIndexString());
+			}
+		}
+		
+	};
+	
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
+				try 
+				{
 					GuiController gc = new GuiController();
-				} catch (Exception e) {
+				} 
+				catch (Exception e) 
+				{
 					e.printStackTrace();
 				}
 			}
