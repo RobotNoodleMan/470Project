@@ -21,6 +21,7 @@ public class GuiController {
 	private SearchView searchV;
 	private Database db;
 	private RegisteredUser currentUser;
+	private EmailView emailV;
 	private LandLord landlord;
 	private Manager manager;
 	private NewPropertyView propV;
