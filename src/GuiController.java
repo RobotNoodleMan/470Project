@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.security.auth.login.FailedLoginException;
@@ -35,6 +37,23 @@ public class GuiController {
 		list.btnSearch.addActionListener(new searchActivate());
 		list.btnCriteria.addActionListener(new criteriaControl());
 	}
+	
+	/*
+	class registerControl implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+		{
+			if(!registerView.textUsername.getText().isEmpty() && !registerView.textPassword.getText().isEmpty() &&
+					!registerView.)
+			
+
+
+			searchV.dispose();
+		}
+		
+	};
+	*/
 	
 	//This class controls the login button on the listView form
 	class loginControl implements ActionListener
@@ -74,6 +93,7 @@ public class GuiController {
 		public void actionPerformed(ActionEvent arg0) 
 		{
 			list.listModel.clear();
+			System.out.println("test");
 			//currentUser.searchCrit = new SearchCriteria();
 			//ArrayList <Property> propertyList = new ArrayList <Property> ();
 			ArrayList <Property> propertyList = db.fillList();
@@ -139,6 +159,13 @@ public class GuiController {
 					list.initializeLandLord();
 					list.btnLandLordCreateProperty.addActionListener(new createPropertyControl());
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+					list.btnLandLordMakePayment.addActionListener(new makePaymentControl());
+
+					LandLord.setDBPaymentInfo(currentUser, db);
+
+					
+					
+					
 				}
 				
 				else if (db.verifyType(currentUser) == 2) {
@@ -149,6 +176,14 @@ public class GuiController {
 					list.listModel.clear();
 					list.initializeManager();
 					list.btnLandLordChangePropertyState.addActionListener(new changePropertyControl());
+					
+				}
+				else
+				{
+					loginV.dispose();
+					//No changes to the GUI
+					//Will display properties that are being followed
+					
 				}
 				
 				
@@ -162,6 +197,34 @@ public class GuiController {
 		}
 		
 	};
+	
+	class makePaymentControl implements ActionListener
+	{
+
+		@Override
+		public void actionPerformed(ActionEvent arg0) 
+		{
+			if(true)		//Going to be if not already paid TODO ie if payment_paid is not null | need to wait until merge an then 
+				//put in db query payment that checks if payment_paid is null or not
+			{
+				System.out.println("test");
+				Timestamp time = new Timestamp(System.currentTimeMillis());
+				String timePaid = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(time);
+				JOptionPane.showMessageDialog(list.northPane,"Payment Made at :" + timePaid + "!");	
+				String s;
+				s = "UPDATE rentingdb.users SET payment_paid = CURRENT_TIMESTAMP WHERE users.user_name = '"+currentUser.getName()+"'";
+				db.executeQuery(s);
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(list.northPane, "Payment Already Made!");
+			}
+
+		}
+		
+	};
+	
+	
 	//This controls the createProperty on the ListView for landlord
 	class createPropertyControl implements ActionListener
 	{
@@ -169,6 +232,7 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
+			
 			propV = new NewPropertyView();
 			propV.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			propV.setVisible(true);
