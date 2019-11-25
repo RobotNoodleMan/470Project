@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 public class GuiController {
 	
 	private ListView list;
-	private LoginView loginV;
+	private Login instance;
 	private SearchView searchV;
 	private Database db;
 	private RegisteredUser currentUser;
@@ -31,6 +31,7 @@ public class GuiController {
 		list = new ListView();
 		currentUser = new RegisteredUser();
 		db = new Database();
+		instance = Login.getInstance(db);
 		list.btnLogin.addActionListener(new loginControl());
 		list.btnSearch.addActionListener(new searchActivate());
 		list.btnCriteria.addActionListener(new criteriaControl());
@@ -61,11 +62,11 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			loginV = new LoginView();
-			loginV.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			loginV.setVisible(true);
-			loginV.bttnLogin.addActionListener(new loginConfirmation());
-		}
+
+			instance.getLogin().setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			instance.getLogin().setVisible(true);
+			instance.getLogin().bttnLogin.addActionListener(new loginConfirmation());
+		}            
 		
 	};
 	//This class controls the search criteria button on listView
@@ -145,18 +146,19 @@ public class GuiController {
 		public void actionPerformed(ActionEvent arg0)
 		{
 			currentUser = new RegisteredUser();
-			currentUser.setName(loginV.txtUsername.getText());
-			currentUser.setPassword(loginV.txtPassword.getText());
-			if(!db.queryUser(currentUser))
+			currentUser.setName(instance.getLogin().txtUsername.getText());
+			currentUser.setPassword(instance.getLogin().txtPassword.getText());
+//			if(!db.queryUser(currentUser))
+			if(!instance.validate(currentUser))
 			{
-				JOptionPane.showMessageDialog(loginV.contentPane,"Failed Login!");
+				JOptionPane.showMessageDialog(instance.getLogin().contentPane,"Failed Login!");
 			}
 			else
 			{
 				// Registered User
 				if (db.verifyType(currentUser) == 0) {
 					list.northPane.setLeftComponent(list.emptylbl);
-					loginV.dispose();
+					instance.getLogin().dispose();
 					list.listModel.clear();
 					list.initializeRegisteredUser();
 					list.btnRegUserNotification.addActionListener(new notificationControl());
@@ -170,7 +172,7 @@ public class GuiController {
 				// Landlord
 				else if (db.verifyType(currentUser) == 1) {
 					list.northPane.setLeftComponent(list.emptylbl);
-					loginV.dispose();
+					instance.getLogin().dispose();
 					landlord = new LandLord(db);
 					landlord.setName(currentUser.getName());
 					landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
@@ -193,7 +195,7 @@ public class GuiController {
 					list.rightPane.setLeftComponent(list.btnSearch);
 					list.btnSearch.addActionListener(new searchActivate());
 
-					loginV.dispose();
+					instance.getLogin().dispose();
 					manager = new Manager(db);;
 					manager.setName(currentUser.getName());
 					manager.setPostedProperties(db.getLandLordProps(manager.getName()));
