@@ -60,9 +60,8 @@ public class Database
             	   if(result.getString("user_type").equals("manager")) {
             		   return 2;
             	   }
-            	   if(result.getString("user_type").equals("registered")) { 
+            	   else 
             		   return 0;
-            	   }
                }
             }
 
