@@ -229,20 +229,20 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent arg0) 
 		{
-			if(true)		//Going to be if not already paid TODO ie if payment_paid is not null | need to wait until merge an then 
-				//put in db query payment that checks if payment_paid is null or not
+			if(db.needtoPaid(currentUser))
 			{
 				System.out.println("test");
 				Timestamp time = new Timestamp(System.currentTimeMillis());
 				String timePaid = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(time);
-				JOptionPane.showMessageDialog(list.northPane,"Payment Made at :" + timePaid + "!");	
+				JOptionPane.showMessageDialog(list.frame,"Payment Made at :" + timePaid + "!");	
 				String s;
 				s = "UPDATE rentingdb.users SET payment_paid = CURRENT_TIMESTAMP WHERE users.user_name = '"+currentUser.getName()+"'";
 				db.executeQuery(s);
+				db.updateStateOfPropertiesIfPaid();
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(list.northPane, "Payment Already Made!");
+				JOptionPane.showMessageDialog(list.frame, "Payment Already Made!");
 			}
 
 		}
@@ -284,7 +284,7 @@ public class GuiController {
 			landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
 			db.updateStateOfPropertiesIfOverduePayment();
 			list.listModel.clear();
-			
+			propV.dispose();
 			for(int i =0; i <landlord.getPostedProperties().size();i++)
 			{
 				list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
@@ -316,6 +316,12 @@ public class GuiController {
 			db.executeQuery(s);
 			
 			cpropV.dispose();
+			list.listModel.clear();
+			landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
+			for(int i =0; i <landlord.getPostedProperties().size();i++)
+			{
+				list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
+			}
 		}
 		
 	};

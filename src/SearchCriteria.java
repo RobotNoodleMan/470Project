@@ -32,7 +32,7 @@ public class SearchCriteria {
 				counter++;
 			}
 			
-			if (furnished == prop.get(i).isFurnished()) {
+			if (furnished.equals( prop.get(i).isFurnished())) {
 				counter++;
 			}
 			

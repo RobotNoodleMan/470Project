@@ -274,12 +274,10 @@ public class Database
 			try
 	        {
 	            createConnection();
-	            PreparedStatement statement =  con.prepareStatement("UPDATE rentingdb.properties, rentingdb.users SET state = 0 WHERE state = 1\r\n" + 
+	            PreparedStatement statement =  con.prepareStatement("UPDATE rentingdb.properties, rentingdb.users SET state = 2 WHERE state = 1\r\n" + 
 	            		"AND user_owner = users.user_name AND payment_due < NOW() and payment_paid is null;");
 	            statement.executeUpdate();
 
-	                       
-	            	
 	            con.close();
 	        }
 			catch(SQLException e)
@@ -289,9 +287,56 @@ public class Database
 				System.err.println("SQL ERROR");
 			}
 			return;
-			
-			
-			
-			
+
+		}
+		
+		public void updateStateOfPropertiesIfPaid()	{
+			try
+	        {
+	            createConnection();
+	            PreparedStatement statement =  con.prepareStatement("UPDATE rentingdb.properties, rentingdb.users SET state = 1 WHERE state = 2\r\n" + 
+	            		"AND user_owner = users.user_name AND payment_paid is not null;");
+	            statement.executeUpdate();
+
+	            con.close();
+	        }
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+				
+				System.err.println("SQL ERROR");
+			}
+			return;
+
+		}
+
+		public boolean needtoPaid(RegisteredUser u) {
+			try {
+				if (queryUser(u)) {
+					createConnection();
+					PreparedStatement statement = con.prepareStatement("SELECT payment_paid from users where users.user_name = '" 
+																		+ u.getName() + "';" );
+					ResultSet result = statement.executeQuery();
+					
+					
+					
+					while (result.next()) {
+						Timestamp toCompare = result.getTimestamp("payment_paid");
+						System.out.println(toCompare);
+						if (toCompare == null)
+							return true;
+						else
+							return false;
+					}
+					
+				}
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+				
+				System.err.println("SQL ERROR");
+			}
+			return false;
 		}
 }

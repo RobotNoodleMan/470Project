@@ -35,7 +35,8 @@ public class Property {
 							 +  " baths: " + String.valueOf(numOfBaths)
 							 +  " beds: " + String.valueOf(numOfRooms)
 							 +  " quadrant: " + quadrant
-							 +  " is Furnished: " + isFurnished;
+							 +  " type: "	+ propertyType
+							 +  " furnished?: " + isFurnished;
 	}
 	
 	public String getIndexString()

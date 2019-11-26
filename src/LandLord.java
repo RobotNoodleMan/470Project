@@ -44,7 +44,7 @@ public class LandLord extends RegisteredUser {
 	public static void setDBPaymentInfo(RegisteredUser userToChange, Database db)
 	{
 		String s;
-		s = "UPDATE rentingdb.users SET payment_paid = CURRENT_TIMESTAMP WHERE users.user_name = '"+userToChange.getName()+"'";
+		s = "UPDATE rentingdb.users SET payment_created = CURRENT_TIMESTAMP WHERE users.user_name = '"+userToChange.getName()+"'";
 		db.executeQuery(s);
 		
 		s = "UPDATE rentingdb.users SET payment_due = NOW()+INTERVAL 60 DAY WHERE users.user_name = '"+userToChange.getName()+"'";
