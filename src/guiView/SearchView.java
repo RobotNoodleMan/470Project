@@ -1,7 +1,7 @@
-import java.awt.BorderLayout;
+package guiView;
+
 import java.awt.EventQueue;
 import java.util.Vector;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,9 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
+
 
 public class SearchView extends JFrame {
 

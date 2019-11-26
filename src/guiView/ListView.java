@@ -1,6 +1,6 @@
-import java.awt.EventQueue;
-import java.util.ArrayList;
+package guiView;
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -46,8 +46,6 @@ public class ListView {
 		list = new JList<>(listModel);
 		
 		frame.getContentPane().add(list, BorderLayout.CENTER);
-		//listModel.addElement("String 1");
-		//listModel.addElement("String 2");
 		
 		northPane = new JSplitPane();
 		frame.getContentPane().add(northPane, BorderLayout.NORTH);

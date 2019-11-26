@@ -1,16 +1,22 @@
+package guiView;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import javax.security.auth.login.FailedLoginException;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import database.Database;
+import entities.LandLord;
+import entities.Login;
+import entities.Manager;
+import entities.Property;
+import entities.RegisteredUser;
 
 public class GuiController {
 	
@@ -102,7 +108,7 @@ public class GuiController {
 			}
 			else
 				propertyList = db.fillList();
-			ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
+			ArrayList<Property> filterList = currentUser.getSearchCrit().FilterProperties(propertyList);
 			for(int i =0;i<filterList.size();i++)
 			{
 				list.listModel.addElement(filterList.get(i).getIndexString());
@@ -117,22 +123,26 @@ public class GuiController {
 		@Override
 		public void actionPerformed(ActionEvent arg0)
 		{
-			currentUser.searchCrit.setQuadrant(searchV.boxQuadrant.getSelectedItem().toString());
+			currentUser.getSearchCrit().setQuadrant(searchV.boxQuadrant.getSelectedItem().toString());
 			
-			currentUser.searchCrit.setFurnished(searchV.checkFurniture.getSelectedItem().toString());
+			currentUser.getSearchCrit().setFurnished(searchV.checkFurniture.getSelectedItem().toString());
 			
-			currentUser.searchCrit.setPropertyType(searchV.boxpropType.getSelectedItem().toString());
+			currentUser.getSearchCrit().setPropertyType(searchV.boxpropType.getSelectedItem().toString());
 			
 			
 			if(!searchV.textBed.getText().isEmpty())
 			{
-				currentUser.searchCrit.setNumOfBeds(Integer.parseInt(searchV.textBed.getText()));
+				currentUser.getSearchCrit().setNumOfBeds(Integer.parseInt(searchV.textBed.getText()));
 			}
+			else
+				currentUser.getSearchCrit().setNumOfBeds(0);
 			
 			if(!searchV.textBath.getText().isEmpty())
 			{
-				currentUser.searchCrit.setNumOfBaths(Integer.parseInt(searchV.textBath.getText()));
+				currentUser.getSearchCrit().setNumOfBaths(Integer.parseInt(searchV.textBath.getText()));
 			}
+			else
+				currentUser.getSearchCrit().setNumOfBaths(0);
 
 			searchV.dispose();
 		}
@@ -166,7 +176,7 @@ public class GuiController {
 					list.initializeRegisteredUser();
 					list.btnRegUserNotification.addActionListener(new notificationControl());
 					ArrayList <Property> propertyList = db.fillList();
-					ArrayList<Property> filterList = currentUser.searchCrit.FilterProperties(propertyList);
+					ArrayList<Property> filterList = currentUser.getSearchCrit().FilterProperties(propertyList);
 					for(int i =0;i<filterList.size();i++)
 					{
 						list.listModel.addElement(filterList.get(i).getIndexString());
@@ -317,10 +327,12 @@ public class GuiController {
 			
 			cpropV.dispose();
 			list.listModel.clear();
-			landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
+			if (db.verifyType(currentUser) == 1) {
+				landlord.setPostedProperties(db.getLandLordProps(landlord.getName()));
 			for(int i =0; i <landlord.getPostedProperties().size();i++)
-			{
-				list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
+				{
+					list.listModel.addElement(landlord.getPostedProperties().get(i).getIndexString());
+				}
 			}
 		}
 		
@@ -363,7 +375,7 @@ public class GuiController {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if (currentUser.recieveNotifications) {
+			if (currentUser.isRecieveNotifications()) {
 				currentUser.setNotifcation(false);
 				JOptionPane.showMessageDialog(list.frame, "You have unsubscribed successfully.");
 			}

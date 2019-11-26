@@ -1,3 +1,4 @@
+package entities;
 import java.util.ArrayList;
 
 public class SearchCriteria {
@@ -41,7 +42,7 @@ public class SearchCriteria {
 				counter++;
 			}
 			
-			if (propertyType == prop.get(i).getPropertyType()) {
+			if (propertyType.equals(prop.get(i).getPropertyType())) {
 				counter++;
 			}
 			

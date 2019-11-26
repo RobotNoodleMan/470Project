@@ -1,4 +1,7 @@
+package entities;
 import java.util.ArrayList;
+
+import database.Database;
 
 public class Manager extends LandLord 
 {

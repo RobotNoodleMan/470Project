@@ -1,14 +1,15 @@
+package entities;
 
 public class RegisteredUser extends User {
 	
 	protected String name;
 	protected String password;
-	protected boolean recieveNotifications;
+	private boolean recieveNotifications;
 	
 	public RegisteredUser()
 	{
 		super();
-		recieveNotifications = false;
+		setRecieveNotifications(false);
 		
 	}
 	
@@ -22,7 +23,7 @@ public class RegisteredUser extends User {
 	}
 	public void setNotifcation(boolean n)
 	{
-		recieveNotifications = n;
+		setRecieveNotifications(n);
 	}
 	
 	public String getName()
@@ -33,6 +34,14 @@ public class RegisteredUser extends User {
 	public String getPassword()
 	{
 		return password;
+	}
+
+	public boolean isRecieveNotifications() {
+		return recieveNotifications;
+	}
+
+	public void setRecieveNotifications(boolean recieveNotifications) {
+		this.recieveNotifications = recieveNotifications;
 	}
 
 }

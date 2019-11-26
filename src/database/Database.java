@@ -1,3 +1,4 @@
+package database;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -5,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+
+import entities.Property;
+import entities.RegisteredUser;
 
 public class Database 
 {
@@ -219,7 +223,7 @@ public class Database
 		ArrayList<Property> p = db.fillList();
 		for(int i =0; i<p.size();i++)
 		{
-			System.out.println(p.get(i).indexString);
+			System.out.println(p.get(i).getIndexString());
 		}
 		
 	}

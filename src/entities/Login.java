@@ -1,4 +1,7 @@
-import java.util.Vector;
+package entities;
+
+import database.Database;
+import guiView.LoginView;
 
 public class Login {
 	private static Login instance = null;

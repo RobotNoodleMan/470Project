@@ -1,10 +1,11 @@
-import java.awt.*;
-import java.awt.event.*;
+package guiView;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.*;
+
 
 public class EmailView extends JFrame {
+	private static final long serialVersionUID = 1L;
 	protected JPanel contentPane;
     protected JTextField txtPropID;
     protected JLabel lblPropID;

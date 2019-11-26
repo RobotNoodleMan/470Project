@@ -1,4 +1,5 @@
-import java.awt.BorderLayout;
+package guiView;
+
 import java.awt.EventQueue;
 
 import javax.swing.JButton;
@@ -10,11 +11,11 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class ChangePropertyView extends JFrame {
-	
+	private static final long serialVersionUID = 1L;
 	protected JPanel contentPane;
     protected JTextField txtPropID;
     protected JLabel lblPropID;
-    protected JComboBox dropState;
+    protected JComboBox<String> dropState;
     protected JLabel lblState;
     protected JLabel lblStateNames;
     protected JButton btnConfirm;
@@ -32,7 +33,7 @@ public class ChangePropertyView extends JFrame {
 	        //construct components
 	        txtPropID = new JTextField (5);
 	        lblPropID = new JLabel ("Property ID:");
-	        dropState = new JComboBox (dropStateItems);
+	        dropState = new JComboBox<String> (dropStateItems);
 	        lblState = new JLabel ("New State:");
 	        lblStateNames = new JLabel ("cancelled = 0, active = 1, rented = 2");
 	        btnConfirm = new JButton ("Confirm");
@@ -66,7 +67,7 @@ public class ChangePropertyView extends JFrame {
         //construct components
         txtPropID = new JTextField (5);
         lblPropID = new JLabel ("Property ID:");
-        dropState = new JComboBox (dropStateItems);
+        dropState = new JComboBox<String> (dropStateItems);
         lblState = new JLabel ("New State:");
         lblStateNames = new JLabel ("cancelled = 0, active = 1, rented = 2, \nsuspended = 3");
         btnConfirm = new JButton ("Confirm");

@@ -1,6 +1,6 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+package guiView;
 
+import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 public class NewPropertyView extends JFrame {
+
+	private static final long serialVersionUID = 1L;
 
 	private JPanel propertyForm;
 	
